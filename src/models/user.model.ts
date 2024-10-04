@@ -23,9 +23,9 @@ export class User extends Model {
   })
   password: string;
 
-  @HasMany(() => Category, "userId")
+  @HasMany(() => Category, 'userId')
   categories: Category[];
 
-  @HasMany(() => Task, "userId")
+  @HasMany(() => Task, 'userId')
   tasks: Task[];
 }
