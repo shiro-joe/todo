@@ -23,9 +23,9 @@ export class Category extends Model {
   })
   name: string;
 
-  @HasMany(() => Task, "categoryId")
+  @HasMany(() => Task, 'categoryId')
   tasks: Task[];
 
-  @BelongsTo(() => User, "userId")
+  @BelongsTo(() => User, 'userId')
   user: User;
 }

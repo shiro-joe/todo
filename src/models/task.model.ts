@@ -38,9 +38,9 @@ export class Task extends Model {
   })
   deadline: number;
 
-  @BelongsTo(() => User, "userId")
+  @BelongsTo(() => User, 'userId')
   user: User;
 
-  @BelongsTo(() => Category, "categoryId")
+  @BelongsTo(() => Category, 'categoryId')
   category: Category;
 }

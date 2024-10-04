@@ -1,15 +1,15 @@
-import { Controller, Get } from "@nestjs/common";
-import { UsersService } from "./users.service";
+import { Controller, Get } from '@nestjs/common';
+import { UsersService } from './users.service';
 
-@Controller("/users")
+@Controller('/users')
 export class UsersController {
-    constructor(private readonly usersService: UsersService){
-        console.log("UsersControllerのコンストラクタ呼び出し");
-    }
+  constructor(private readonly usersService: UsersService) {
+    console.log('UsersControllerのコンストラクタ呼び出し');
+  }
 
-    @Get()
-    findAll() {
-        console.log("findAll呼び出し");
-        return this.usersService.findAll();
-    }
+  @Get()
+  findAll() {
+    console.log('findAll呼び出し');
+    return this.usersService.findAll();
+  }
 }
