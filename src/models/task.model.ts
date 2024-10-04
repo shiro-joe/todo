@@ -1,6 +1,8 @@
 'use strict';
 
-import { Column, Model, Table } from 'sequelize-typescript';
+import { Column, Model, Table, BelongsTo } from 'sequelize-typescript';
+import { User } from './user.model';
+import { Category } from './category.model';
 
 @Table
 export class Task extends Model {
@@ -35,4 +37,10 @@ export class Task extends Model {
     allowNull: false,
   })
   deadline: number;
+
+  @BelongsTo(() => User, "userId")
+  user: User;
+
+  @BelongsTo(() => Category, "categoryId")
+  category: Category;
 }

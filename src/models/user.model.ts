@@ -1,6 +1,8 @@
 'use strict';
 
-import { Column, Model, Table } from 'sequelize-typescript';
+import { Column, Model, Table, HasMany } from 'sequelize-typescript';
+import { Category } from './category.model';
+import { Task } from './task.model';
 
 @Table
 export class User extends Model {
@@ -20,4 +22,10 @@ export class User extends Model {
     allowNull: false,
   })
   password: string;
+
+  @HasMany(() => Category, "userId")
+  categories: Category[];
+
+  @HasMany(() => Task, "userId")
+  tasks: Task[];
 }
