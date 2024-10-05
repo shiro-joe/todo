@@ -38,7 +38,7 @@ export class AppController {
   @Render('sign-in')
   async getSignIn(@Req() req: Request, @Res() res: Response) {
     const users = await this.usersService.findAll();
-    return { users: users, sum: 10, };
+    return { users: users };
   }
 
   @Post('/sign-in')
@@ -53,25 +53,30 @@ export class AppController {
   }
 
   @Get('/home')
-  @Render('home')
   async getHome(@Req() req: Request, @Res() res: Response) {
     if (this.userId === 0) {
       res.redirect('/sign-in');
+      return;
     }
-    if (!req.query.categryId) {
-      return {
+    if (!req.query.categoryId) {
+      res.render("home", {
         tasks: await this.tasksService.selectByUserId(this.userId),
         categories: await this.categoriesService.selectByUserId(this.userId),
-      };
+      });
+    } else if(req.query.categoryId==="0"){
+      res.render("home", {
+        tasks: await this.tasksService.selectByUserId(this.userId),
+        categories: await this.categoriesService.selectByUserId(this.userId),
+      });
     } else {
       const categoryId = Number(req.query.categoryId);
-      return {
+      res.render("home", {
         tasks: await this.tasksService.selectByUserIdAndCategoryId(
           this.userId,
           categoryId,
         ),
         categories: await this.categoriesService.selectByUserId(this.userId),
-      };
+      });
     }
   }
 
@@ -106,10 +111,17 @@ export class AppController {
     res.redirect('/home');
   }
 
-  @Delete('/tasks')
+  @Post('/tasks-delete')
   async deleteTasks(@Req() req: Request, @Res() res: Response) {
-    const title = req.body.title;
-    await this.tasksService.deleteTask(this.userId, title);
+    const title: string = req.body.title;
+    console.log(title)
+    // console.log("tasks-deleteにきたよ")
+    // console.log(req.body.titles[1])
+    // for(let title in titles) {
+    //   console.log("削除します")
+    //   await this.tasksService.deleteTask(this.userId, title);
+    // }
+    await this.tasksService.deleteTask(this.userId, title)
     res.redirect('/home');
   }
   // @Get()
