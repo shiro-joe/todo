@@ -36,9 +36,9 @@ export class AppController {
 
   @Get('/sign-in')
   @Render('sign-in')
-  async getSignIn() {
-    const users = this.usersService.findAll();
-    return { users: users };
+  async getSignIn(@Req() req: Request, @Res() res: Response) {
+    const users = await this.usersService.findAll();
+    return { users: users, sum: 10, };
   }
 
   @Post('/sign-in')
@@ -47,6 +47,7 @@ export class AppController {
       this.userId = (await this.usersService.findOne(req.body.name)).get('id');
       res.redirect('/home');
     } catch (error) {
+      console.log("ユーザーが存在しません")
       res.redirect('/sign-in');
     }
   }
@@ -59,17 +60,17 @@ export class AppController {
     }
     if (!req.query.categryId) {
       return {
-        tasks: this.tasksService.selectByUserId(this.userId),
-        categories: this.categoriesService.selectByUserId(this.userId),
+        tasks: await this.tasksService.selectByUserId(this.userId),
+        categories: await this.categoriesService.selectByUserId(this.userId),
       };
     } else {
       const categoryId = Number(req.query.categoryId);
       return {
-        tasks: this.tasksService.selectByUserIdAndCategoryId(
+        tasks: await this.tasksService.selectByUserIdAndCategoryId(
           this.userId,
           categoryId,
         ),
-        categories: this.categoriesService.selectByUserId(this.userId),
+        categories: await this.categoriesService.selectByUserId(this.userId),
       };
     }
   }
@@ -78,7 +79,7 @@ export class AppController {
   async postUsers(@Req() req: Request, @Res() res: Response) {
     const name = req.body.name;
     const password = req.body.password;
-    this.usersService.addUser(name, password);
+    await this.usersService.addUser(name, password);
     res.redirect('/sign-in');
   }
 
@@ -88,7 +89,7 @@ export class AppController {
     const categoryId = req.body.categoryId;
     const content = req.body.content;
     const deadline = req.body.deadline;
-    this.tasksService.addTask(
+    await this.tasksService.addTask(
       this.userId,
       categoryId,
       title,
@@ -101,14 +102,14 @@ export class AppController {
   @Post('/categories')
   async postCategories(@Req() req: Request, @Res() res: Response) {
     const name = req.body.name;
-    this.categoriesService.addCategory(this.userId, name);
+    await this.categoriesService.addCategory(this.userId, name);
     res.redirect('/home');
   }
 
   @Delete('/tasks')
   async deleteTasks(@Req() req: Request, @Res() res: Response) {
     const title = req.body.title;
-    this.tasksService.deleteTask(this.userId, title);
+    await this.tasksService.deleteTask(this.userId, title);
     res.redirect('/home');
   }
   // @Get()

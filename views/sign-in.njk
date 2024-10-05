@@ -1,0 +1,30 @@
+{% extends "base.njk" %}
+{% block title %}Sign-in 画面{% endblock %}
+{% block content %}
+<div class="m-auto w-75 px-5 py-3 border rounded">
+    <div class="container mt-4 mb-4 py-2 border rounded">
+        <form method="post" action="/sign-in">
+            <select class="form-select mt-2 mb-2" aria-label="Default select example" name="name">
+                <option selected>ユーザー選択</option>
+                {% for user in users %}
+                <option>{{ user.name }}</option>
+                {% endfor %}
+            </select>
+            <div class="text-center">
+            <input type="submit" class="btn btn-outline-primary mb-2" value="todoアプリへ">
+            </div>
+        </form>
+    </div>
+  <div class="container mt-4 mb-4 border rounded">
+    <form method="post" action="/users">
+        <label for="name" class="form-label">ユーザーネーム</label>
+        <input id="name" name="name" type="text" class="form-control mb-2" value="">
+        <label for="password" class="form-label">パスワード（仮）</label>
+        <input id="password" name="password" type="password" class="form-control mb-4">
+        <div class="text-center">
+        <input type="submit" class="mt-1 mb-2 btn btn-outline-primary text-end" value="ユーザー登録">
+        </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
