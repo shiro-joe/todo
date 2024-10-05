@@ -19,14 +19,14 @@ export class UsersService {
     return this.userModel.findOne({
       where: {
         name: name,
-      }
-    })
+      },
+    });
   }
 
   async addUser(name: string, password: string): Promise<void> {
     this.userModel.create({
       name: name,
       password: password,
-    })
+    });
   }
 }

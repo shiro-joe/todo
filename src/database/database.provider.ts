@@ -13,6 +13,6 @@ export const databaseProvider = SequelizeModule.forRoot({
   // username: 'root',
   // password: 'root',
   // database: 'db',
-  storage: join(__dirname, "..", "..", "todo.db"),
+  storage: join(__dirname, '..', '..', 'todo.db'),
   models: [User, Task, Category],
 });
