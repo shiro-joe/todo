@@ -113,6 +113,11 @@ export class AppController {
 
   @Post('/tasks-delete')
   async deleteTasks(@Req() req: Request, @Res() res: Response) {
+    if(req.body.title===""){
+      console.log("空白タイトル")
+      res.redirect("/home")
+      return;
+    }
     const title: string = req.body.title;
     console.log(title)
     // console.log("tasks-deleteにきたよ")

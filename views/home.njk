@@ -19,11 +19,12 @@
             <ul class="list-group">
                 {% for task in tasks %}
                 <li class="list-group-item">
-                    <input class="form-check-input me-1" type="radio" value="{{ task.title }}" id="{{ task.title }}" name="title">
+                    <input class="form-check-input me-1" type="radio" value="{{ task.title }}" id="{{ task.title }}" name="title" required>
                     <label class="form-check-label" for="{{ task.title }}">{{ task.title }}---{{ task.content }}---{{ task.deadline }}</label>
                 </li>
                 {% endfor %}
             </ul>
+            <input type="hidden" name="title" value="">
         </div>
         <div class="text-center">
             <input type="submit" class="mt-1 mb-2 btn btn-outline-primary" value="選択したタスクを削除">
