@@ -7,6 +7,7 @@ import { CategoriesController } from './categories.controller';
   imports: [featureCategory],
   providers: [CategoriesService],
   controllers: [CategoriesController],
+  exports: [CategoriesService],
 })
 export class CategoriesModule {
   constructor() {

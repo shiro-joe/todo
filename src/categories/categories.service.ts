@@ -14,4 +14,19 @@ export class CategoriesService {
   async findAll(): Promise<Category[]> {
     return this.categoryModel.findAll();
   }
+
+  async selectByUserId(userId: number): Promise<Category[]> {
+    return this.categoryModel.findAll({
+      where: {
+        userId: userId,
+      },
+    });
+  }
+
+  async addCategory(userId: number, name: string): Promise<void> {
+    this.categoryModel.create({
+      userId: userId,
+      name: name,
+    });
+  }
 }
