@@ -26,7 +26,7 @@ export class AppController {
   ) {}
 
   @Get('/')
-  async get(@Req() req: Request, @Req() res: Response) {
+  async get(@Req() req: Request, @Res() res: Response) {
     if (this.userId === 0) {
       res.redirect('/sign-in');
     } else {
