@@ -48,4 +48,29 @@ export class TasksService {
       },
     });
   }
+
+  async addTask(
+    userId: number,
+    categoryId: number,
+    title: string,
+    content: string,
+    deadline: number,
+  ): Promise<void> {
+    this.taskModel.create({
+      userId: userId,
+      categoryId: categoryId,
+      title: title,
+      content: content,
+      deadline: deadline,
+    });
+  }
+
+  async deleteTask(userId: number, title: string): Promise<void> {
+    this.taskModel.destroy({
+      where: {
+        userId: userId,
+        title: title,
+      },
+    });
+  }
 }
