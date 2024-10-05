@@ -7,7 +7,7 @@ import { UsersController } from './users.controller';
   imports: [featureUser],
   providers: [UsersService],
   controllers: [UsersController],
-  exports: [UsersService]
+  exports: [UsersService],
 })
 export class UsersModule {
   constructor() {
