@@ -20,7 +20,7 @@
                 {% for task in tasks %}
                 <li class="list-group-item">
                     <input class="form-check-input me-1" type="radio" value="{{ task.title }}" id="{{ task.title }}" name="title">
-                    <label class="form-check-label" for="{{ task.title }}">{{ task.title }}---{{ task.content }}---{{ task.deadline }}</label>
+                    <label class="form-check-label" for="{{ task.title }}">{{ task.title }}---{{ task.content }}---{{ task.deadline }}---{{ task.category.name }}</label>
                 </li>
                 {% endfor %}
             </ul>
@@ -33,17 +33,17 @@
         <div class="py-2 border-rounded">
             <form method="post" action="tasks">
                 <select class="form-select mt-2 mb-2" aria-label="Default select example" name="categoryId">
-                    <option selected disabled>登録するカテゴリ</option>
+                    <option selected disabled required>登録するカテゴリ</option>
                     {% for category in categories %}
                     <option value={{ category.id }}>{{ category.name }}</option>
                     {% endfor %}
                 </select>
                 <label for="title" class="form-label">タスクのタイトル</label>
-                <input id="title" name="title" tyep="text" class="form-control mb-2" value="">
+                <input id="title" name="title" tyep="text" class="form-control mb-2" value="" required>
                 <label for="content" class="form-label">詳細</label>
                 <textarea name="content" class="form-control mb-2" id="content" rows="3" required></textarea>
                 <label for="deadline" class="form-label">締め切り</label>
-                <input id="deadline" name="deadline" tyep="number" class="form-control mb-2" value="">
+                <input id="deadline" name="deadline" tyep="number" class="form-control mb-2" value="" required>
                 <div class="mt-2 text-center">
                     <input type="submit" id="submitButton" class="btn btn-outline-primary rounded-pill" value="タスク追加">
                 </div> 
