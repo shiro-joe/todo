@@ -2,13 +2,28 @@
 {% block title %}todo home{% endblock %}
 {% block content %}
 <div >
-    <form method="get" action="/home">
-        <select class="form-select mt-2 mb-2" aria-label="Default select example" name="categoryId">
-            <option selected disabled>カテゴリ選択</option>
-            <option value="0">All</option>
-            {% for category in categories %}
-            <option value={{ category.id }}>{{ category.name }}</option>
+   <form method="get" action="/home">
+      <select class="form-select mt-2 mb-2" aria-label="Default select example" name="categoryId">
+         <option selected disabled>カテゴリ選択</option>
+         <option value="0">All</option>
+         {% for category in categories %}
+         <option value={{ category.id }}>{{ category.name }}</option>
+         {% endfor %}
+      </select>
+      <div class="text-center mb-3 border-bottom">
+         <input type="submit" class="mt-1 mb-2 btn btn-outline-primary" value="選択したカテゴリを表示">
+      </div>
+   </form>
+   <form method="post" action="/tasks-delete">
+      <div class="overflow-auto mt-3 mb-1 mh-50 border rounded">
+         <ul class="list-group">
+            {% for task in tasks %}
+            <li class="list-group-item">
+               <input class="form-check-input me-1" type="radio" value="{{ task.title }}" id="{{ task.title }}" name="title" required>
+               <label class="form-check-label" for="{{ task.title }}">{{ task.title }}---{{ task.content }}---{{ task.deadline }}</label>
+            </li>
             {% endfor %}
+
         </select>
         <div class="text-center mb-3 border-bottom">
             <input type="submit" class="mt-1 mb-2 btn btn-outline-primary" value="選択したカテゴリを表示">
@@ -63,5 +78,6 @@
     </div>
     <form>
     </form>
+
 </div>
 {% endblock %}

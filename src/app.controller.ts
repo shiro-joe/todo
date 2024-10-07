@@ -47,7 +47,7 @@ export class AppController {
       this.userId = (await this.usersService.findOne(req.body.name)).get('id');
       res.redirect('/home');
     } catch (error) {
-      console.log("ユーザーが存在しません")
+      console.log('ユーザーが存在しません');
       res.redirect('/sign-in');
     }
   }
@@ -59,18 +59,18 @@ export class AppController {
       return;
     }
     if (!req.query.categoryId) {
-      res.render("home", {
+      res.render('home', {
         tasks: await this.tasksService.selectByUserId(this.userId),
         categories: await this.categoriesService.selectByUserId(this.userId),
       });
-    } else if(req.query.categoryId==="0"){
-      res.render("home", {
+    } else if (req.query.categoryId === '0') {
+      res.render('home', {
         tasks: await this.tasksService.selectByUserId(this.userId),
         categories: await this.categoriesService.selectByUserId(this.userId),
       });
     } else {
       const categoryId = Number(req.query.categoryId);
-      res.render("home", {
+      res.render('home', {
         tasks: await this.tasksService.selectByUserIdAndCategoryId(
           this.userId,
           categoryId,
@@ -113,15 +113,20 @@ export class AppController {
 
   @Post('/tasks-delete')
   async deleteTasks(@Req() req: Request, @Res() res: Response) {
+    if (req.body.title === '') {
+      console.log('空白タイトル');
+      res.redirect('/home');
+      return;
+    }
     const title: string = req.body.title;
-    console.log(title)
+    console.log(title);
     // console.log("tasks-deleteにきたよ")
     // console.log(req.body.titles[1])
     // for(let title in titles) {
     //   console.log("削除します")
     //   await this.tasksService.deleteTask(this.userId, title);
     // }
-    await this.tasksService.deleteTask(this.userId, title)
+    await this.tasksService.deleteTask(this.userId, title);
     res.redirect('/home');
   }
   // @Get()
